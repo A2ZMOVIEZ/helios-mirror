@@ -30,7 +30,7 @@ class DbManger:
                  media boolean DEFAULT FALSE,
                  doc boolean DEFAULT FALSE,
                  thumb bytea DEFAULT NULL,
-                 leechlog boolean DEFAULT FALSE
+                 pre text DEFAULT ''
               )
               """
         self.cur.execute(sql)
