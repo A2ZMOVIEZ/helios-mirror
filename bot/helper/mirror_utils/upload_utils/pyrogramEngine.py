@@ -74,17 +74,18 @@ class TgUploader:
         self.__listener.onUploadComplete(None, size, self.__msgs_dict, self.__total_files, self.__corrupted, self.name)
 
     def __upload_file(self, up_path, file_, dirpath):
-        fsize = ospath.getsize(up_path)
-        if fsize > 2097152000:
-            client = app_session
+        prefix = PRE_DICT.get(self.__listener.message.from_user.id, "")
+        PRENAME_X = prefix
+        if file_.startswith('www'):  
+            file_ = ' '.join(file_.split()[1:])
+            file_ = f"{PRENAME_X}"+ file_.strip('-').strip('_')
+            new_path = ospath.join(dirpath, file_)
+            osrename(up_path, new_path)
+            up_path = new_path
         else:
-            client = app
-        if LEECH_LOG:
-            set = LEECH_LOG.copy()
-            setstr = str(set)[1:-1]
-            LEECH_DUMP = int(setstr)
-            leechchat = LEECH_DUMP
-        else: leechchat = self.__listener.message.chat.id
+            up_path = up_path
+            cap_mono = f"<code>{file_}</code>"
+            pm_cap = f"<b>{file_}</b>"
         if CUSTOM_FILENAME is not None:
             cap_mono = f"{CUSTOM_FILENAME} <b>{file_}</b>"
             file_ = f"{CUSTOM_FILENAME} {file_}"
