@@ -60,4 +60,5 @@ class _BotCommands:
         self.RssSettingsCommand = getCommand('RSSSET_CMD', f'rssset{CMD_INDEX}')
         self.AddleechlogCommand = getCommand('ADDLEECHLOG_CMD', f'addleechlog{CMD_INDEX}')
         self.RmleechlogCommand = getCommand('RMLEECHLOG_CMD', f'rmleechlog{CMD_INDEX}')
+        self.PreNameCommand = f'prename{CMD_INDEX}'
 BotCommands = _BotCommands()
