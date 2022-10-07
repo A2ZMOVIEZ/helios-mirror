@@ -152,6 +152,17 @@ class DbManger:
         self.conn.commit()
         self.disconnect()
 
+    def user_pre(self, user_id: int, user_pre):
+        if self.err:
+            return
+        elif not self.user_check(user_id):
+            sql = 'INSERT INTO users (pre, uid) VALUES (%s, %s)'
+        else:
+            sql = 'UPDATE users SET pre = %s WHERE uid = %s'
+        self.cur.execute(sql, (user_pre, user_id))
+        self.conn.commit()
+        self.disconnect()
+
     def user_save_thumb(self, user_id: int, path):
         if self.err:
             return
