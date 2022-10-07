@@ -74,14 +74,9 @@ class TgUploader:
         self.__listener.onUploadComplete(None, size, self.__msgs_dict, self.__total_files, self.__corrupted, self.name)
 
     def __upload_file(self, up_path, file_, dirpath):
-        prefix = PRE_DICT.get(self.__listener.message.from_user.id, "")
-        PRENAME_X = prefix
-        if file_.startswith('www'):  
-            file_ = ' '.join(file_.split()[1:])
-            file_ = f"{PRENAME_X}"+ file_.strip('-').strip('_')
-            new_path = ospath.join(dirpath, file_)
-            osrename(up_path, new_path)
-            up_path = new_path
+        fsize = ospath.getsize(up_path)
+        if fsize > 2097152000:
+            client = app_session
         else:
             client = app
         if LEECH_LOG:
